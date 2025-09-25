@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-    char category;         // F = fashion, G = groceries
+    char category;         // F = fashion, G = groceries, E = electronics
     double budget;         // user budget
     char choice, addMore;  // product and extra choices
     double spent = 0;      // total before discount
@@ -15,7 +15,7 @@ int main() {
     cout << "=== Shopee Assistant ===" << endl;
 
     // Ask for category
-    cout << "Enter category [F = Fashion, G = Groceries]: ";
+    cout << "Enter category [F = Fashion, G = Groceries, E = Electronics]: ";
     cin >> category;
 
     // Ask for budget depending on category
@@ -25,6 +25,9 @@ int main() {
     else if (category == 'G' || category == 'g') {
         cout << "Enter your budget (RM30 - RM150): ";
     } 
+    else if (category == 'E' || category == 'e') {
+        cout << "Enter your budget (RM50 - RM500): ";
+    }
     else {
         cout << "Category not available.\n";
         return 0;
@@ -124,67 +127,211 @@ int main() {
     // =========================
     // GROCERIES SECTION
     // =========================
-// =========================
-// GROCERIES SECTION
-// =========================
-else if (category == 'G' || category == 'g') {
-    discount = 0.05; // groceries get 5% discount
+    else if (category == 'G' || category == 'g') {
+        discount = 0.05; // groceries get 5% discount
 
-    if (budget >= 100) { // Premium Pack
-        mainProduct = 100;
-        spent += mainProduct;
-        cout << "Product added: Premium Weekly Grocery Pack (RM100)\n";
+        if (budget >= 100) { // Premium Pack
+            mainProduct = 100;
+            spent += mainProduct;
+            cout << "Product added: Premium Weekly Grocery Pack (RM100)\n";
 
-        cout << "Do you want to add Snack (RM10)? [Y/N]: ";
-        cin >> addMore;
-        if (addMore == 'Y' || addMore == 'y') {
-            spent += 10;
-            lastAddon = 10;
-            cout << "Added: Snack (RM10)\n";
-        }
-
-        cout << "Do you want to add Dessert (RM15)? [Y/N]: ";
-        cin >> addMore;
-        if (addMore == 'Y' || addMore == 'y') {
-            spent += 15;
-            lastAddon = 15;
-            cout << "Added: Dessert (RM15)\n";
-        }
-    }
-    else if (budget >= 50) { // Standard Pack
-        mainProduct = 50;
-        spent += mainProduct;
-        cout << "Product added: Standard Grocery Pack (RM50)\n";
-
-        if (budget > mainProduct) { // can afford at least one add-on
-            cout << "You have extra budget! Choose add-on: [A = Snack RM10, B = Dessert RM15, N = None]: ";
-            char addonChoice;
-            cin >> addonChoice;
-
-            if ((addonChoice == 'A' || addonChoice == 'a') && budget >= mainProduct + 10) {
+            cout << "Do you want to add Snack (RM10)? [Y/N]: ";
+            cin >> addMore;
+            if (addMore == 'Y' || addMore == 'y') {
                 spent += 10;
                 lastAddon = 10;
                 cout << "Added: Snack (RM10)\n";
-            } 
-            else if ((addonChoice == 'B' || addonChoice == 'b') && budget >= mainProduct + 15) {
+            }
+
+            cout << "Do you want to add Dessert (RM15)? [Y/N]: ";
+            cin >> addMore;
+            if (addMore == 'Y' || addMore == 'y') {
                 spent += 15;
                 lastAddon = 15;
                 cout << "Added: Dessert (RM15)\n";
-            } 
-            else {
-                cout << "No add-ons selected or insufficient budget.\n";
             }
         }
+        else if (budget >= 50) { // Standard Pack
+            mainProduct = 50;
+            spent += mainProduct;
+            cout << "Product added: Standard Grocery Pack (RM50)\n";
+
+            if (budget > mainProduct) { // can afford at least one add-on
+                cout << "You have extra budget! Choose add-on: [A = Snack RM10, B = Dessert RM15, N = None]: ";
+                char addonChoice;
+                cin >> addonChoice;
+
+                if ((addonChoice == 'A' || addonChoice == 'a') && budget >= mainProduct + 10) {
+                    spent += 10;
+                    lastAddon = 10;
+                    cout << "Added: Snack (RM10)\n";
+                } 
+                else if ((addonChoice == 'B' || addonChoice == 'b') && budget >= mainProduct + 15) {
+                    spent += 15;
+                    lastAddon = 15;
+                    cout << "Added: Dessert (RM15)\n";
+                } 
+                else {
+                    cout << "No add-ons selected or insufficient budget.\n";
+                }
+            }
+        }
+        else if (budget >= 30) { // Snack Bundle
+            mainProduct = 30;
+            spent += mainProduct;
+            cout << "Product added: Snack Bundle (RM30)\n";
+        }
+        else {
+            cout << "Tight budget! Only balance: RM" << budget << endl;
+        }
     }
-    else if (budget >= 30) { // Snack Bundle
-        mainProduct = 30;
-        spent += mainProduct;
-        cout << "Product added: Snack Bundle (RM30)\n";
+
+    // =========================
+    // ELECTRONICS SECTION 
+    // =========================
+    else if (category == 'E' || category == 'e') {
+        discount = 0.15; // 15% discount 
+
+        if (budget >= 400) { // Premium Electronics
+            cout << "Choose product: [A = Smartphone RM399, B = Laptop RM450]: ";
+            cin >> choice;
+
+            if (choice == 'A' || choice == 'a') {
+                mainProduct = 399;
+                spent += mainProduct;
+                cout << "Product added: Smartphone (RM399)\n";
+            } 
+            else if (choice == 'B' || choice == 'b') {
+                mainProduct = 450;
+                spent += mainProduct;
+                cout << "Product added: Laptop (RM450)\n";
+            }
+
+            cout << "Do you want to add accessories? [Y/N]: ";
+            cin >> addMore;
+
+            if (addMore == 'Y' || addMore == 'y') {
+                cout << "Choose accessory: [A = Power Bank RM50, B = Wireless Earphones RM80, C = Phone Case RM25]: ";
+                cin >> choice;
+
+                if (choice == 'A' || choice == 'a') {
+                    spent += 50;
+                    lastAddon = 50;
+                    cout << "Added: Power Bank (RM50)\n";
+
+                    cout << "Do you want to add USB Cable (+RM15)? [Y/N]: ";
+                    char cableChoice;
+                    cin >> cableChoice;
+                    if (cableChoice == 'Y' || cableChoice == 'y') {
+                        spent += 15;
+                        lastAddon = 15;
+                        cout << "Added: USB Cable (RM15)\n";
+                    }
+                } 
+                else if (choice == 'B' || choice == 'b') {
+                    spent += 80;
+                    lastAddon = 80;
+                    cout << "Added: Wireless Earphones (RM80)\n";
+                } 
+                else if (choice == 'C' || choice == 'c') {
+                    spent += 25;
+                    lastAddon = 25;
+                    cout << "Added: Phone Case (RM25)\n";
+
+                    cout << "Do you want to add Screen Protector (+RM10)? [Y/N]: ";
+                    char protectorChoice;
+                    cin >> protectorChoice;
+                    if (protectorChoice == 'Y' || protectorChoice == 'y') {
+                        spent += 10;
+                        lastAddon = 10;
+                        cout << "Added: Screen Protector (RM10)\n";
+                    }
+                }
+            }
+        }
+
+        else if (budget >= 200) { // Mid-range Electronics
+            cout << "Choose product: [A = Tablet RM250, B = Smart Watch RM180, C = Gaming Headset RM120]: ";
+            cin >> choice;
+
+            if (choice == 'A' || choice == 'a') {
+                mainProduct = 250;
+                spent += mainProduct;
+                cout << "Product added: Tablet (RM250)\n";
+
+                cout << "Do you want to add Tablet Case (+RM30)? [Y/N]: ";
+                char caseChoice;
+                cin >> caseChoice;
+                if (caseChoice == 'Y' || caseChoice == 'y') {
+                    spent += 30;
+                    lastAddon = 30;
+                    cout << "Added: Tablet Case (RM30)\n";
+                }
+            } 
+            else if (choice == 'B' || choice == 'b') {
+                mainProduct = 180;
+                spent += mainProduct;
+                cout << "Product added: Smart Watch (RM180)\n";
+
+                cout << "Do you want to add Watch Strap (+RM20)? [Y/N]: ";
+                char strapChoice;
+                cin >> strapChoice;
+                if (strapChoice == 'Y' || strapChoice == 'y') {
+                    spent += 20;
+                    lastAddon = 20;
+                    cout << "Added: Watch Strap (RM20)\n";
+                }
+            } 
+            else if (choice == 'C' || choice == 'c') {
+                mainProduct = 120;
+                spent += mainProduct;
+                cout << "Product added: Gaming Headset (RM120)\n";
+
+                cout << "Do you want to add Microphone Stand (+RM25)? [Y/N]: ";
+                char micChoice;
+                cin >> micChoice;
+                if (micChoice == 'Y' || micChoice == 'y') {
+                    spent += 25;
+                    lastAddon = 25;
+                    cout << "Added: Microphone Stand (RM25)\n";
+                }
+            }
+        }
+
+        else if (budget >= 50) { // Budget Electronics
+            cout << "Choose product: [A = Bluetooth Speaker RM60, B = USB Mouse RM35, C = Phone Charger RM25]: ";
+            cin >> choice;
+
+            if (choice == 'A' || choice == 'a') {
+                mainProduct = 60;
+                spent += mainProduct;
+                cout << "Product added: Bluetooth Speaker (RM60)\n";
+            } 
+            else if (choice == 'B' || choice == 'b') {
+                mainProduct = 35;
+                spent += mainProduct;
+                cout << "Product added: USB Mouse (RM35)\n";
+
+                cout << "Do you want to add Mouse Pad (+RM8)? [Y/N]: ";
+                char padChoice;
+                cin >> padChoice;
+                if (padChoice == 'Y' || padChoice == 'y') {
+                    spent += 8;
+                    lastAddon = 8;
+                    cout << "Added: Mouse Pad (RM8)\n";
+                }
+            } 
+            else if (choice == 'C' || choice == 'c') {
+                mainProduct = 25;
+                spent += mainProduct;
+                cout << "Product added: Phone Charger (RM25)\n";
+            }
+        }
+
+        else {
+            cout << "Tight budget! Only balance: RM" << budget << endl;
+        }
     }
-    else {
-        cout << "Tight budget! Only balance: RM" << budget << endl;
-    }
-}
 
     // =========================
     // FINAL CHECKOUT

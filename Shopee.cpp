@@ -34,9 +34,9 @@ int main() {
     }
     cin >> budget;
 
-    // =========================
+    // ==========================
     // FASHION SECTION
-    // =========================
+    // ==========================
     if (category == 'F' || category == 'f') {
         discount = 0.10; // fashion gets 10% discount
 
@@ -124,9 +124,9 @@ int main() {
         }
     }
 
-    // =========================
+    // ==========================
     // GROCERIES SECTION
-    // =========================
+    // ==========================
     else if (category == 'G' || category == 'g') {
         discount = 0.05; // groceries get 5% discount
 
@@ -186,9 +186,9 @@ int main() {
         }
     }
 
-    // =========================
+    // ==========================
     // ELECTRONICS SECTION 
-    // =========================
+    // ==========================
     else if (category == 'E' || category == 'e') {
         discount = 0.15; // 15% discount 
 
@@ -333,9 +333,9 @@ int main() {
         }
     }
 
-    // =========================
+    // ==========================
     // FINAL CHECKOUT
-    // =========================
+    // ==========================
     if (spent > 0) {
         finalPrice = spent - (spent * discount);
 
